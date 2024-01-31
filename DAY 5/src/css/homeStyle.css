@@ -1,0 +1,29 @@
+.dashboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .chart-img {
+      width: 15vh;
+      height: 18vh;
+      left: 2vh;
+      bottom:0vh;
+      position: absolute;
+
+    }
+    .trend-box {
+      .rs-panel-body {
+        text-align: right;
+        .title {
+          font-size: 3vh;
+          color: aliceblue;
+          font-family: cursive;
+        }
+        .value{
+          font-size: 2vh;
+          color: aliceblue;
+          font-family: cursive;
+        }
+      }
+    }
+  }
