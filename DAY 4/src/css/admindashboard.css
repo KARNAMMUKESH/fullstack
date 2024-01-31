@@ -1,0 +1,89 @@
+/* dashboard-header styles */
+.dashboard-header .rs-panel {
+    background: #fff;
+    color: #fff;
+  }
+  
+  .dashboard-header .chart-img {
+    width: 100px;
+    position: absolute;
+    left: 26px;
+    top: 34px;
+    opacity: 0.5;
+  }
+  
+  .dashboard-header .trend-box .rs-panel-body {
+    text-align: right;
+  }
+  
+  .dashboard-header .trend-box .rs-panel-body .value {
+    font-size: 36px;
+  }
+  
+  /* ct-chart-white-colors styles */
+  .ct-chart-white-colors .ct-label {
+    color: #eee;
+  }
+  
+  .ct-chart-white-colors .ct-series-a .ct-bar,
+  .ct-chart-white-colors .ct-series-a .ct-slice-donut,
+  .ct-chart-white-colors .ct-series-a .ct-line,
+  .ct-chart-white-colors .ct-series-a .ct-point {
+    stroke: #eee;
+  }
+  
+  .ct-chart-white-colors .ct-grid {
+    stroke: hsla(0, 0%, 100%, 0.2);
+  }
+  
+  /* colorful-chart styles */
+  .colorful-chart {
+    color: #fff;
+    margin-top: 30px;
+    border-radius: 6px;
+  }
+  
+  .colorful-chart h3 {
+    line-height: 22px;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  /* ct-chart-magenta styles */
+  .ct-chart-magenta {
+    background: linear-gradient(60deg, #ec407a, #d81b60);
+  }
+  
+  .ct-chart-magenta 
+  
+  /* ct-chart-orange styles */
+  .ct-chart-orange {
+    background: linear-gradient(60deg, #ffa726, #fb8c00);
+  }
+  
+  .ct-chart-orange
+  
+  /* ct-chart-azure styles */
+  .ct-chart-azure {
+    background: linear-gradient(60deg, #26c6da, #00acc1);
+  }
+  
+  .ct-chart-azure
+  
+  /* card styles */
+  .card {
+    background: #fff;
+    margin-top: 30px;
+    border-radius: 6px;
+  }
+  
+  .card h3 {
+    line-height: 22px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  
+  
