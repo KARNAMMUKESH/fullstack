@@ -1,0 +1,266 @@
+// import React from 'react';
+import AWS from 'aws-sdk';
+
+const S3uploader = () => {
+    const config={
+        bucketName:import.meta.env.AWS_BUCKET_NAME,
+        dirName:"userprofiles",
+        region:import.meta.env.AWS_BUCKET_REGION,
+        accessKeyID:import.meta.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: import.meta.env.AWS_SECRET_ACCESS_KEY
+    }
+    const handleFileUpload=(event)=>{
+        const file=event.target.files[0];
+        console.log(file);
+
+        // Initialize AWS
+        AWS.config.update({
+            accessKeyId: config.accessKeyId,
+            secretAccessKey: config.secretAccessKey,
+            region: config.region
+        })
+
+        // Create new Instance
+        const S3 = new AWS.S3();
+
+        //Having file in ArrayBuffer
+        const reader = new FileReader();
+
+        reader.onload=()=>{
+            const fileBuffer = reader.result;
+            S3.upload({
+                BucketName: config.bucketName,
+                Key: ${config.dirName}/${file.name},
+                Body: fileBuffer,
+                ACL: 'public-read',
+                ContentType: 'image/svg+xml'
+            },(err, uploadedData) =>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log(uploadedData);
+                }
+            })
+        }
+    }
+    return (
+        <div>
+            <input type="file"  name='file to be uploaded' onChange={handleFileUpload}/>
+        </div>
+    );
+};
+
+export default S3uploader;
+
+****************
+aws
+login as root user
+region mumbai
+search bar iam
+iam dashboard
+access management -> user groups -> create group button
+group name : Demo_Admin
+no user as of now
+attach policy -> Admission access
+create group
+user count 0
+
+click on users
+create user button -> Demo_Harith
+dont check check box
+
+set permission:
+best: add user to group
+check Demo_Admin
+next
+summary
+click create user
+
+nou user count =1
+
+ click user name(Demo_Harith)
+security -> credentials 
+console signin -> no password
+create custom password
+dont check any box
+create
+close
+
+assign mfa 
+set google or microsoft authenticator
+give device name(name reflect in auth app - give meaningful name)
+choose auth app
+next
+scan qr code
+add 2 consequtive mfa code
+click add mfa
+device type - virtual
+
+signup credential - copy url
+paste url - signin again
+username -> password -> mfa code
+
+now logged in iam user
+
+search for s3
+verify location is in mumbai
+in s3, region is global
+check bucket name rule and type name
+sses3
+bucketkey enable
+
+bucket created
+open demo
+create folder
+name it as user-profiles
+dont check anything
+create
+
+click folder name
+click upload button
+add single file
+file is added 
+click upload
+
+click file name
+go to another page
+the page url is http url
+access denied ( default disabled)
+go back to bucket
+goto permission tab
+scroll down -> public access off -> edit -> uncheck main check box ->save changes ->enter confirm
+
+go back to url
+still access denied
+object ownership -> edit -> enable acl ->check warning -> save changes
+refresh -> still access denied
+add access policy
+edit bucket policy -> create statement  -> principal : "*"
+"Action" : "S3:GetObject"
+Add resource -> click add resource ->remove array -> "{resource arn url}/*"
+
+now we can use this bucket
+
+in our react project:
+install aws sdk
+npm 
+in to right , shows command npm i aws-sdk
+install it in terminal 
+now aws sdk in dependencies
+
+in root folder create file called " .env "
+
+sign in as root user
+goto iam -> iam users tab
+click on user -> create access key -> local code -> check confirm -> next ->enter description (It is for demo) -> create access key (dont show secret access key)
+
+create component called s3uploader.jsx
+
+*************************
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "http://localhost:4000"
+        ],
+        "ExposeHeaders": []
+    }
+]
+****************************
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "demo",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "S3:GetObject",
+            "Resource": "arn:aws:s3:::vitedemo2/*"
+        }
+    ]
+}
+***************************
+ <div
+    style={{
+      fontSize: "2em",
+      color: "darkBlue",
+      textAlign: "center",
+      padding: "10vh",
+      animationName: "fadeInDown",
+      animationDuration: "2s",
+    }}
+    >
+    <style>
+  {`
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  `}
+</style>
+    Your Website Name
+  </div>
+*********************************
+ <Row gutter={10} className="dashboard-header" style={{padding:'2vh'}}>
+        <Col xs={7}>
+          <Panel className="trend-box" style={{background: "linear-gradient(to right, #FF243F, #FF501D)"}}>
+            <img className="chart-img" src='src\images\pv.svg'/>
+            <div className="title">Page Views </div>
+            <div className="value">281,358</div>
+          </Panel>
+        </Col>
+        <Col xs={7}>
+          <Panel className="trend-box" style={{background: "linear-gradient(to left, #00CDF1, #0075EE)"}}>
+            <img className="chart-img" src='src\images\uv.svg'/>
+            <div className="title">Visits </div>
+            <div className="value">251,901</div>
+          </Panel>
+        </Col>
+        <Col xs={7}>
+          <Panel className="trend-box" style={{background: "linear-gradient(to right, #00D194, #00D1CD)"}}>
+            <img className="chart-img" src='src\images\vv.svg '/>
+            <div className="title">Unique Visitors</div>
+            <div className="value">25,135</div>
+          </Panel>
+        </Col>
+      </Row>
+      **************************8
+      .dashboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .chart-img {
+      width: 18vh;
+      position: absolute;
+      left: 5vh;
+      top: 3vh;
+      opacity: 0.5;
+    }
+    .trend-box {
+      .rs-panel-body {
+        text-align: right;
+        .value {
+          font-size: 5vh;
+        }
+      }
+    }
+  }
+**************************************
